@@ -1,0 +1,30 @@
+From d697fa065d8e20f68b47de06cdd08ccd4d00ad0d Mon Sep 17 00:00:00 2001
+From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Date: Sun, 21 Feb 2021 11:54:50 +0100
+Subject: [PATCH 3/5] linuxspi: Report GPIO_GET_LINEHANDLE_IOCTL errors
+
+This is not something purely theoretical, as strace shown:
+
+openat(AT_FDCWD, "/dev/spidev1.0", O_RDWR|O_LARGEFILE) = 3
+openat(AT_FDCWD, "/sys/class/gpio/gpiochip32", O_RDONLY|O_LARGEFILE) = 4
+ioctl(4, GPIO_GET_LINEHANDLE_IOCTL, 0xbe8e07f4) = -1 ENOTTY (Inappropriate ioctl for device)
+---
+ avrdude/linuxspi.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/avrdude/linuxspi.c b/avrdude/linuxspi.c
+index 15ff97d..6675f48 100644
+--- a/avrdude/linuxspi.c
++++ b/avrdude/linuxspi.c
+@@ -170,6 +170,8 @@ static int linuxspi_open(PROGRAMMER *pgm, char *port)
+     ret = ioctl(fd_gpiochip, GPIO_GET_LINEHANDLE_IOCTL, &req);
+     if (ret == -1) {
+         ret = -errno;
++        avrdude_message(MSG_INFO, "%s error: Unable to get GPIO line %d\n",
++                        progname, pgm->pinno[PIN_AVR_RESET] & ~PIN_INVERSE);
+         goto close_gpiochip;
+     }
+ 
+-- 
+2.29.2
+

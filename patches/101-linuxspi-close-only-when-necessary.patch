@@ -1,0 +1,34 @@
+From a5567a8010e2fca82e1414e2b47653bf35d0c5a8 Mon Sep 17 00:00:00 2001
+From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Date: Sun, 21 Feb 2021 11:49:57 +0100
+Subject: [PATCH 2/5] linuxspi: close() only when necessary
+
+Don't close the same FD twice (fd_spidev), but close fd_linehandle in
+linuxspi_close().
+---
+ avrdude/linuxspi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/avrdude/linuxspi.c b/avrdude/linuxspi.c
+index 29646e7..15ff97d 100644
+--- a/avrdude/linuxspi.c
++++ b/avrdude/linuxspi.c
+@@ -157,7 +157,6 @@ static int linuxspi_open(PROGRAMMER *pgm, char *port)
+ 
+     fd_gpiochip = open(gpiochip, 0);
+     if (fd_gpiochip < 0) {
+-        close(fd_spidev);
+         avrdude_message(MSG_INFO, "\n%s error: Unable to open the gpiochip %s", progname, gpiochip);
+         ret = -1;
+         goto close_spidev;
+@@ -193,6 +192,7 @@ close_spidev:
+ 
+ static void linuxspi_close(PROGRAMMER *pgm)
+ {
++    close(fd_linehandle);
+     close(fd_spidev);
+     close(fd_gpiochip);
+ }
+-- 
+2.29.2
+
