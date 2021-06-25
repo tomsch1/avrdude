@@ -42,7 +42,7 @@ patch -d ${target} < ${patch6}
 
 # bootstrap, compile, install
 cd ${target}
-./autoreconf -f -i
+./bootstrap
 ./configure --enable-linuxgpio --enable-linuxspi --prefix=/usr --sysconfdir=/etc
 make
 cd ..
