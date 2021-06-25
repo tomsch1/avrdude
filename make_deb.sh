@@ -1,6 +1,6 @@
 #!/bin/bash
 
-build=avrdude-6.3
+build=avrdude-6.3-build
 target=avrdude_6.3-armhf
 
 if [ ! -d ${build} ]; then
