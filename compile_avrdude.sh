@@ -12,26 +12,6 @@ patch4=patches/102-linuxspi-Report-GPIO_GET_LINEHANDLE_IOCTL-errors.patch
 patch5= patches/103-linuxspi-Support-inverted-GPIO-pin.patch
 patch6=patches/104-linuxspi-Support-GPIO-uAPI-v2.patch
 
-url=http://download.savannah.gnu.org/releases/avrdude/${tgz}
-
-# delete old directory
-if [ -d ${target} ]; then
-	echo "Found old ${target}: deleting..."
-	rm -rf ${target}
-fi
-
-# get tar.gz if necessary
-if [ ! -f ${tgz} ]; then
-	echo "${tgz} not found. Getting it..."
-	wget ${url} || { echo "Error getting "${tgz}; exit 1; }
-fi
-
-# extract
-if [ -f ${tgz} ]; then
-	echo "Found ${tgz}: extracting..."
-	tar -xzvf ${tgz} || { echo "Error extracting "${tgz}; exit 1; }
-fi
-
 
 patch -d ${target} < ${patch1}
 patch -d ${target} < ${patch2}
