@@ -2,7 +2,10 @@
 
 #sudo apt-get install libusb-1.0-0-dev libftdi-dev autoconf bison flex bc libtool
 
-target=avrdude-6.3
+source=avrdude-6.3
+target=${source}-build
+
+
 
 tgz=${target}.tar.gz
 patch1=patches/90-avrdude-linuxspi-V1.patch
@@ -12,6 +15,8 @@ patch4=patches/102-linuxspi-Report-GPIO_GET_LINEHANDLE_IOCTL-errors.patch
 patch5= patches/103-linuxspi-Support-inverted-GPIO-pin.patch
 patch6=patches/104-linuxspi-Support-GPIO-uAPI-v2.patch
 
+
+cp -r ${source} ${target}
 
 patch -d ${target} < ${patch1}
 patch -d ${target} < ${patch2}
