@@ -1,7 +1,7 @@
 #!/bin/bash
 
 build=avrdude-6.3.1-build
-target=avrdude_6.3.1-armhf
+target=avrdude-6.3.1_armhf
 
 if [ ! -d ${build} ]; then
 	echo "No ${build} directory found. Compiling avrdude..."
