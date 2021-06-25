@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#sudo apt-get install libusb-1.0-0-dev libftdi-dev autoconf bison flex bc libtool
+#sudo apt-get install libusb-1.0-0-dev libftdi-dev autoconf bison flex bc libtool libelf-dev
 
 source=avrdude-6.3
-target=${source}-build
+target=avrdude-6.3.1-build
 
 
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-build=avrdude-6.3-build
-target=avrdude_6.3-armhf
+build=avrdude-6.3.1-build
+target=avrdude_6.3.1-armhf
 
 if [ ! -d ${build} ]; then
 	echo "No ${build} directory found. Compiling avrdude..."
@@ -30,11 +30,11 @@ echo "/etc/avrdude.conf" >> ${target}/DEBIAN/conffiles
 # DEBIAN/control
 # add 'libelf1 (>= 0.142)' at the 'Depends:' line if you compiled with libelf-dev installed
 echo "Package: avrdude
-Version: 6.3
+Version: 6.3.1
 Architecture: armhf
 Maintainer: Michael Biebl <biebl@debian.org>
 Installed-Size: INSTALLED_SIZE
-Depends: libc6 (>= 2.13-28), libftdi1 (>= 0.20), libncurses5 (>= 5.5-5~), libreadline6 (>= 6.0), libtinfo5, libusb-0.1-4 (>= 2:0.1.12), libusb-1.0-0 (>= 2:1.0.8)
+Depends: libc6 (>= 2.15), libftdi1 (>= 0.20), libncurses5 (>= 5.5-5~), libreadline6 (>= 6.0), libtinfo5, libusb-0.1-4 (>= 2:0.1.12), libusb-1.0-0 (>= 2:1.0.8), libelf1 (>= 0.142)
 Suggests: avrdude-doc
 Section: electronics
 Priority: extra
